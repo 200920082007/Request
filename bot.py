@@ -9,10 +9,9 @@ logging.basicConfig(level=logging.ERROR)
 
 CHANNELS = "-1001885651550"         
 AuthChat = filters.chat(CHANNELS) if CHANNELS else (filters.group | filters.channel)         
-User     = Client(name = "AcceptUser", session_string = environ.get("SESSION"))
+UB = Client(session_string=session_string)
 
-
-@User.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
+@UB.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
 async def approve(client: User, message: Message):
     Id = message.chat.id
     await message.delete(True)
