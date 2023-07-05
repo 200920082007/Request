@@ -9,9 +9,10 @@ logging.basicConfig(level=logging.ERROR)
 SESSION = environ.get("SESSION")
 CHANNELS = "-1001885651550"         
 AuthChat = filters.chat(CHANNELS) if CHANNELS else (filters.group | filters.channel)         
-UB = Client(session_string=SESSION)
+UB_Client = Client(session_name="my_session", api_id=20268776, api_hash="1048dbd34139b86a39122bd95d49bd63", session_string=SESSION)
 
-@UB.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
+
+@UB_Client.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
 async def approve(client: User, message: Message):
     Id = message.chat.id
     await message.delete(True)
@@ -42,7 +43,7 @@ async def approve(client: User, message: Message):
 
 
 logging.info("Bot Started....")
-User.run()
+UB_Client.run()
 
 
 
