@@ -12,12 +12,15 @@ SESSION = environ.get("SESSION")
 CHANNELS = "-1001885651550"         
 AuthChat = filters.chat(CHANNELS) if CHANNELS else (filters.group | filters.channel)         
 
-User = Client(
-        SESSION,
-        api_id=API_ID,
-        api_hash=API_HASH,
-)
 
+class User(Client):
+    def __init__(self):
+        super().__init__(
+            SESSION,
+            api_hash=API_HASH,
+            api_id=API_ID,  
+        )
+            
 @User.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
 async def approve(client: User, message: Message):
     Id = message.chat.id
@@ -52,7 +55,14 @@ logging.info("Bot Started....")
 User.run()
 
 
+async def start(self):
+        await super().start()
+        usr_bot_me = await self.get_me()
+        return (self, usr_bot_me.id)
 
+    async def stop(self, *args):
+        await super().stop()
+        self.LOGGER(__name__).info("Bot stopped. Bye.")
 
 
 
