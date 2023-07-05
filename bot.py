@@ -13,13 +13,15 @@ CHANNELS = "-1001885651550"
 AuthChat = filters.chat(CHANNELS) if CHANNELS else (filters.group | filters.channel)         
 
 
-class User(Client):
+from pyrogram.types import UserBot
+
+class User(UserBot):
     def __init__(self):
         super().__init__(
-            SESSION,
+            session_string=SESSION,
+            api_id=API_ID,
             api_hash=API_HASH,
-            api_id=API_ID,  
-        )
+)
             
 @User.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
 async def approve(client: User, message: Message):
@@ -58,7 +60,6 @@ async def start(self):
 
 
 logging.info("Bot Started....")
-User.run()
 
 
 
