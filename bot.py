@@ -49,7 +49,7 @@ async def approve(client: User, message: Message):
 
 
 logging.info("Bot Started....")
-User.run()))
+User.run()
 
 
 
