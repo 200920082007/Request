@@ -5,14 +5,20 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait
 
+API_ID = "20268776"
+API_HASH = "1048dbd34139b86a39122bd95d49bd63"
 logging.basicConfig(level=logging.ERROR)
 SESSION = environ.get("SESSION")
 CHANNELS = "-1001885651550"         
 AuthChat = filters.chat(CHANNELS) if CHANNELS else (filters.group | filters.channel)         
-UB_Client = Client(session_name="my_session", api_id=20268776, api_hash="1048dbd34139b86a39122bd95d49bd63", session_string=SESSION)
 
+User = Client(
+        SESSION,
+        api_id=API_ID,
+        api_hash=API_HASH,
+)
 
-@UB_Client.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
+@User.on_message(filters.command(["run", "approve", "start"], [".", "/"]) & AuthChat)                     
 async def approve(client: User, message: Message):
     Id = message.chat.id
     await message.delete(True)
@@ -43,7 +49,7 @@ async def approve(client: User, message: Message):
 
 
 logging.info("Bot Started....")
-UB_Client.run()
+User.run()))
 
 
 
