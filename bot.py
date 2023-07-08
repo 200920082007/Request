@@ -10,7 +10,7 @@ API_HASH = "1048dbd34139b86a39122bd95d49bd63"
 logging.basicConfig(level=logging.ERROR)
 SESSION = environ.get("SESSION")
 CHANNELS = "-1001885651550"         
-AuthChat = filters.chat(CHANNELS) if CHANNELS else (filters.group | filters.channel)         
+AuthChat = (filters.group | filters.channel)         
 
 
 class User(Client):
